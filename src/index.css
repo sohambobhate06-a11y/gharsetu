@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --brand-forest: #174D3B;
+    --brand-dark-forest: #0F3528;
+    --brand-ivory: #F8F5EE;
+    --brand-cream: #F3EFE6;
+    --brand-terracotta: #C96F4A;
+    --brand-gold: #D5B477;
+    --brand-charcoal: #252A28;
+    --brand-muted: #747A75;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background-color: var(--brand-ivory);
+    color: var(--brand-charcoal);
+  }
+
+  h1, h2, h3, .font-serif-display {
+    font-family: 'Playfair Display', Georgia, serif;
+  }
+
+  .font-mono-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Custom Leaflet Map styling */
+.leaflet-container {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  z-index: 10;
+  background-color: #f2efe9 !important;
+}
+
+/* Custom Marker Styling for GharSetu */
+.ghar-map-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #174D3B;
+  color: #FFFFFF;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 12px;
+  box-shadow: 0 4px 12px rgba(23, 77, 59, 0.35);
+  border: 2px solid #FFFFFF;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.ghar-map-pin:hover, .ghar-map-pin.active-pin {
+  background-color: #C96F4A;
+  transform: scale(1.1);
+  z-index: 1000 !important;
+  box-shadow: 0 6px 16px rgba(201, 111, 74, 0.45);
+}
+
+.ghar-map-pin.sale-pin {
+  background-color: #252A28;
+}
+
+.ghar-map-pin.sale-pin:hover, .ghar-map-pin.sale-pin.active-pin {
+  background-color: #C96F4A;
+}
+
+/* Clean popup overrides */
+.leaflet-popup-content-wrapper {
+  padding: 0 !important;
+  border-radius: 12px !important;
+  overflow: hidden !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+.leaflet-popup-content {
+  margin: 0 !important;
+  line-height: 1.4 !important;
+}
+
+.leaflet-popup-tip {
+  background: white !important;
+}

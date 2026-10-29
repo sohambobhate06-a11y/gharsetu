@@ -1,0 +1,1113 @@
+# PROJECT: GharSetu — Premium Real Estate Marketplace for Urban India
+
+## 1. YOUR ROLE
+
+Act as a senior full-stack software engineer, product architect, real-estate marketplace specialist, database designer, UI/UX designer, and QA engineer.
+
+Build a complete, production-oriented, responsive real-estate marketplace named GharSetu.
+
+Tagline: "Your Dream Home. Every Deal. One Destination."
+
+This must be a functional full-stack web application, not a static landing page, UI prototype, or collection of non-functional buttons.
+
+The platform serves citizens, tenants, property buyers, property owners, brokers, and administrators in urban India.
+
+The key differentiator is the ability to associate multiple broker offers with the same property and allow citizens to compare rent or sale prices, brokerage fees, deposits, availability, and other applicable charges.
+
+Prioritize data correctness, security, clear navigation, premium design, and working functionality.
+
+Do not claim that external services are working until they have been configured and tested.
+
+## 2. REQUIRED TECHNOLOGY STACK
+
+Frontend:
+
+* React
+* Vite
+* TypeScript
+* Tailwind CSS
+* Framer Motion
+* React Router
+* React Hook Form
+* Zod
+* Google Maps JavaScript API and Places API through supported Google Maps Platform libraries
+
+Backend:
+
+* Node.js
+* Express
+* TypeScript
+* PostgreSQL
+* Supabase Auth
+* Supabase Storage
+* Server-side validation
+* Role-based authorization
+
+Integrations:
+
+* Google Maps Platform
+* OpenWeather API
+* GitHub-compatible project structure
+
+Use supported, current package versions.
+
+Keep frontend, backend, database configuration, and shared types organized into clearly separated modules.
+
+Provide environment variable examples without including real API keys or secrets.
+
+## 3. BRAND IDENTITY AND DESIGN SYSTEM
+
+Create a premium, visually distinctive real-estate brand.
+
+Brand name: GharSetu.
+
+Tagline: Your Dream Home. Every Deal. One Destination.
+
+Visual direction:
+
+* Premium Indian urban real-estate marketplace
+* Editorial-quality property photography
+* Spacious layouts
+* Large, readable typography
+* Elegant rounded cards
+* Clear information hierarchy
+* Sophisticated navigation
+* High-quality property imagery
+* Responsive layouts for mobile, tablet, and desktop
+
+Use a cohesive color palette:
+
+* Primary forest green: #174D3B
+* Warm ivory: #F8F5EE
+* Terracotta: #C96F4A
+* Champagne gold: #D5B477
+* Charcoal: #252A28
+* Muted grey: #747A75
+* White: #FFFFFF
+
+Use forest green and ivory as the main brand colors.
+
+Differentiate the visual identity of the portals without making them look like unrelated products:
+
+* Public landing page: forest green, ivory, terracotta accents
+* Citizen dashboard: ivory, terracotta, charcoal
+* Broker dashboard: forest green, ivory, champagne gold
+* Admin dashboard: charcoal, ivory, muted amber
+
+Do not use the same background image repeatedly across every dashboard.
+
+Use relevant, licensed or otherwise authorized property imagery. If remote image URLs are used, implement graceful fallbacks and avoid depending on unreliable external URLs.
+
+Never use fake property statistics, fake reviews, fabricated testimonials, or misleading verification badges.
+
+## 4. APPLICATION NAVIGATION
+
+Implement the following user journey:
+
+Public landing page
+-> Buy / Rent / Sell / Explore Map
+-> Property Search
+-> Property Details
+-> Compare Broker Offers
+-> Login or Register
+-> Enquiry / Viewing Request
+-> Appropriate User Dashboard
+
+Provide separate authentication entry points for:
+
+1. Citizen
+2. Broker
+3. Administrator
+
+Use protected routes and backend authorization.
+
+After successful login, redirect users according to their verified account role.
+
+If a user opens a dashboard route without authentication, redirect to login.
+
+If a user is authenticated but lacks the required role, deny access and redirect safely.
+
+Do not rely on a role value supplied by the frontend to grant permissions.
+
+## 5. LANDING PAGE
+
+Build a premium landing page with the following sections.
+
+### A. Navbar
+
+* GharSetu logo
+* Buy
+* Rent
+* Sell
+* Explore Map
+* For Brokers
+* Login
+* Get Started
+
+Use a responsive navigation menu for mobile.
+
+### B. Hero Section
+
+Create an attractive hero section with high-quality residential property photography.
+
+Headline:
+"Find Your Place in the City."
+
+Supporting copy:
+"Discover verified property listings, compare broker offers, and find a home that fits your life and budget."
+
+Include:
+
+* Buy / Rent segmented control
+* Location search
+* Minimum and maximum budget
+* Property type selector
+* Bedroom selector
+* Search Properties button
+* Explore Map button
+
+The hero should feel premium and modern, with restrained animations and clear calls to action.
+
+### C. Featured Properties
+
+Display real database-backed listings when available.
+
+Each card should contain:
+
+* Property cover image
+* Rent or sale price
+* Locality and city
+* Property type
+* Bedroom count
+* Area
+* Verified status when genuinely verified
+* Number of linked broker offers when available
+* View Details button
+* Save Property button
+
+Show loading, empty, and error states.
+
+Do not invent properties when the production database is empty.
+
+For development, provide clearly labeled seed data that can be removed.
+
+### D. Explore by Location
+
+Provide locality and city discovery cards.
+
+Support configured locations and database-backed listing counts.
+
+### E. How It Works
+
+Explain the process for citizens and brokers separately.
+
+### F. Broker CTA
+
+Invite brokers to register, verify their identity, and manage property listings.
+
+### G. Trust and Safety
+
+Explain how broker verification, duplicate detection, reported listings, and transparent offer comparison work.
+
+Do not claim that all listings are verified unless the backend confirms it.
+
+### H. FAQ and Footer
+
+Include relevant FAQs, privacy information, terms, contact information, and links to role-specific login pages.
+
+Keep the landing page focused. Detailed management features belong inside authenticated dashboards.
+
+## 6. AUTHENTICATION AND ACCOUNT MANAGEMENT
+
+Implement secure authentication using Supabase Auth.
+
+Required features:
+
+* Citizen registration
+* Broker registration
+* Login
+* Logout
+* Email verification
+* Password reset
+* Session persistence
+* Protected routes
+* Role-specific dashboard redirects
+* Profile management
+* Authentication error handling
+
+Use Supabase Auth for password handling. Never store plaintext passwords in application tables.
+
+Create a profiles table linked to the authenticated user.
+
+Supported roles:
+
+* citizen
+* broker
+* admin
+
+Public users may register as citizens or apply for broker access.
+
+Do not allow public users to promote themselves to admin.
+
+Admin access must be granted through a trusted server-side process.
+
+Broker accounts should support verification status:
+
+* pending
+* verified
+* rejected
+* suspended
+
+Show appropriate status indicators in the interface.
+
+## 7. CITIZEN REGISTRATION AND PREFERENCES
+
+Create a citizen onboarding flow.
+
+Collect:
+
+* Full name
+* Email
+* Phone number, when supplied
+* Preferred city
+* Preferred localities
+* Preferred transaction type
+* Minimum budget
+* Maximum budget
+* Preferred property types
+* Preferred bedroom count
+* Minimum carpet area
+* Furnishing preference
+* Required amenities
+* Maximum search radius
+* Optional move-in date
+
+Validate all inputs.
+
+Use INR for currency formatting.
+
+Distinguish monthly rental budgets from property purchase budgets.
+
+Do not mix rental and sale listings in the same price comparison.
+
+Allow citizens to update and save preferences.
+
+Do not require precise current-location access to use the website.
+
+Request browser location permission only when the citizen explicitly chooses a current-location feature.
+
+If location permission is denied, allow manual address and locality selection.
+
+## 8. BROKER PORTAL
+
+Create a dedicated broker dashboard with its own navigation and visual identity.
+
+Dashboard sections:
+
+1. Overview
+2. Add Property
+3. My Properties
+4. Manage Offers
+5. Leads and Enquiries
+6. Viewing Requests
+7. Messages
+8. Profile and Verification
+9. Analytics
+10. Settings
+
+### Broker Overview
+
+Display database-backed metrics:
+
+* Total active listings
+* Pending review
+* Total enquiries
+* Upcoming viewings
+* Offer status
+
+Do not use fabricated analytics.
+
+### Add Property Form
+
+Required fields:
+
+* Property title
+* Description
+* Property type
+* Transaction type: rent or sale
+* City
+* Locality
+* Postal code
+* Street address, stored with appropriate access controls
+* Latitude
+* Longitude
+* Bedroom count
+* Bathroom count
+* Balcony count
+* Carpet area
+* Built-up area, optional
+* Furnishing status
+* Floor number, optional
+* Total floors, optional
+* Parking information
+* Amenities
+* Availability date
+* Property images
+* Optional video
+* Listing status
+
+Validate numeric ranges, required fields, and image formats.
+
+### Image Management
+
+Support:
+
+* Multiple image uploads
+* Image previews
+* Cover image selection
+* Upload progress
+* Reordering
+* Removal
+* File type and file size validation
+* Upload failure recovery
+
+Store images in Supabase Storage.
+
+Persist storage paths and image metadata in PostgreSQL.
+
+Use appropriate storage policies and ownership checks.
+
+Never pretend an image was uploaded if storage failed.
+
+### Location Selection
+
+Use Google Maps Platform for address autocomplete and map-based pin selection.
+
+When the broker selects a location:
+
+* Store the selected formatted address
+* Store latitude and longitude
+* Store city and locality where available
+* Allow the broker to adjust the marker
+* Validate coordinates
+* Provide a manual entry fallback
+
+Do not silently use the broker's current location as the property location.
+
+### My Properties
+
+Provide:
+
+* Search
+* Filtering
+* Sorting
+* Pagination
+* Edit
+* Preview
+* Deactivate
+* Delete or archive
+* Listing status
+* Moderation status
+
+Possible statuses:
+
+* draft
+* pending_review
+* active
+* rented
+* sold
+* rejected
+* archived
+
+Enforce ownership in the backend.
+
+### Manage Offers
+
+A broker may manage offers only for properties they are authorized to represent.
+
+Support:
+
+* Offer price
+* Currency
+* Transaction type
+* Monthly rent where applicable
+* Sale price where applicable
+* Brokerage type: fixed or percentage
+* Brokerage amount or percentage
+* Security deposit
+* Negotiability
+* Additional disclosed charges
+* Availability
+* Offer status
+* Validity period
+* Notes
+
+Make it clear whether brokerage is a fixed fee, a percentage, or another explicitly supported arrangement.
+
+Avoid ambiguous or hidden charges.
+
+## 9. CITIZEN DASHBOARD
+
+Create a dedicated citizen dashboard.
+
+Sections:
+
+1. Overview
+2. Recommended Properties
+3. Saved Properties
+4. My Searches
+5. My Enquiries
+6. Viewing Appointments
+7. Messages
+8. Preferences
+9. Profile
+10. Notifications
+
+All records must belong to the authenticated citizen.
+
+### Saved Properties
+
+Allow citizens to save and unsave listings or canonical properties.
+
+Persist saved items in the database.
+
+### Enquiries
+
+Allow a citizen to contact a broker about a specific offer.
+
+Include:
+
+* Property
+* Selected offer
+* Broker
+* Message
+* Enquiry timestamp
+* Status
+* Contact-sharing consent
+
+Possible statuses:
+
+* new
+* contacted
+* viewing_scheduled
+* closed
+
+### Viewing Appointments
+
+Allow citizens to request property visits.
+
+Store:
+
+* Property
+* Offer
+* Broker
+* Citizen
+* Requested date and time
+* Appointment status
+* Optional notes
+
+Handle timezone and conflicting appointment requests correctly.
+
+### Notifications
+
+Create in-app notifications for relevant events such as enquiry responses, viewing updates, and broker offer changes.
+
+Do not claim that email or SMS notifications work until the corresponding provider is configured and tested.
+
+## 10. PROPERTY SEARCH AND FILTERING
+
+Implement database-backed property search.
+
+Supported filters:
+
+* Buy or Rent
+* City
+* Locality
+* Postal code
+* Minimum price
+* Maximum price
+* Property type
+* Bedroom count
+* Bathroom count
+* Furnishing
+* Minimum area
+* Amenities
+* Availability
+* Maximum distance from selected coordinates
+* Verified broker or listing status where supported
+
+Add:
+
+* Sort by price ascending
+* Sort by price descending
+* Sort by newest
+* Sort by relevance
+* Pagination
+* Search query persistence
+* Clear filters
+* Empty states
+
+Rental prices must be compared only with rental prices.
+
+Sale prices must be compared only with sale prices.
+
+Use server-side filtering and parameterized database queries.
+
+Validate query parameters and prevent SQL injection.
+
+Use sensible database indexes for commonly searched fields.
+
+## 11. GOOGLE MAPS INTEGRATION
+
+Integrate Google Maps Platform through properly configured API keys.
+
+Required functionality:
+
+* Map rendering
+* Address autocomplete
+* Property markers
+* Marker clustering when appropriate
+* Property preview on marker click
+* Map/list toggle
+* Search by location
+* Search this area
+* Optional current-location control
+* Radius-based property search
+* Directions link when supported
+
+Use coordinates stored in the database.
+
+Do not generate random coordinates for real property listings.
+
+Handle missing API keys and API failures gracefully.
+
+Provide a clear configuration message in development if Maps is not configured.
+
+Restrict browser API keys by allowed referrers and enabled APIs.
+
+Keep server-side secrets private.
+
+Use a privacy-conscious location strategy:
+
+* Request current location only after explicit user action.
+* Explain why location permission is needed.
+* Provide manual location search as an alternative.
+* Do not expose a property's exact private address to unauthorized visitors.
+* Allow a public approximate marker when exact location privacy is required.
+
+Do not claim that distance calculations are perfectly accurate in all cases.
+
+Use an appropriate geospatial calculation method and document its limitations.
+
+## 12. OPENWEATHER INTEGRATION
+
+Integrate OpenWeather through a backend service.
+
+Use supported endpoints for:
+
+* Current weather
+* Temperature
+* Humidity
+* Weather description
+* Forecast information when available under the configured endpoint and plan
+
+Use property coordinates or explicitly selected locality coordinates.
+
+Display the timestamp of weather information.
+
+Handle missing API keys, rate limits, invalid responses, and service outages.
+
+Cache weather results where appropriate.
+
+Never expose a private API key in frontend source code.
+
+Do not describe weather information as proof of property quality, safety, air quality, or long-term climate suitability.
+
+Keep weather information supplementary to property details.
+
+## 13. MOST IMPORTANT FEATURE: CANONICAL PROPERTY AND MULTIPLE BROKER OFFERS
+
+Design the database so multiple brokers can provide offers for the same real-world property.
+
+Do not create a new canonical property every time a broker creates an offer for an existing property.
+
+Use a normalized structure.
+
+Recommended core tables:
+
+### profiles
+
+* id
+* full_name
+* email
+* phone
+* role
+* created_at
+* updated_at
+
+### citizen_preferences
+
+* id
+* citizen_id
+* transaction_type
+* minimum_budget
+* maximum_budget
+* preferred_city
+* preferred_localities
+* property_types
+* bedroom_count
+* furnishing
+* minimum_area
+* amenities
+* search_radius_km
+
+### broker_profiles
+
+* id
+* user_id
+* business_name
+* verification_status
+* verification_metadata
+* created_at
+* updated_at
+
+### properties
+
+* id
+* canonical_property_key, when appropriate
+* title
+* description
+* property_type
+* address
+* locality
+* city
+* postal_code
+* latitude
+* longitude
+* bedroom_count
+* bathroom_count
+* carpet_area
+* built_up_area
+* furnishing
+* amenities
+* location_precision
+* moderation_status
+* created_at
+* updated_at
+
+### property_media
+
+* id
+* property_id
+* storage_path
+* media_type
+* is_cover
+* display_order
+* created_at
+
+### broker_property_relationships
+
+* id
+* property_id
+* broker_id
+* representation_status
+* verification_status
+* created_at
+
+### property_offers
+
+* id
+* property_id
+* broker_id
+* transaction_type
+* rent_amount
+* sale_price
+* deposit_amount
+* brokerage_type
+* brokerage_amount
+* brokerage_percentage
+* negotiable
+* additional_charges
+* availability_status
+* valid_from
+* valid_until
+* created_at
+* updated_at
+
+Add appropriate foreign keys, unique constraints, indexes, and validation rules.
+
+Do not blindly trust a broker's claim that a property is identical to an existing property.
+
+### Duplicate detection
+
+Use candidate matching based on:
+
+* Normalized address
+* Building name
+* Unit number when available
+* Locality
+* Coordinates
+* Property characteristics
+* Existing property records
+
+Generate candidate matches and let an authorized broker or administrator confirm ambiguous cases.
+
+Do not merge two units solely because they share a building or coordinates.
+
+Record property merge and correction actions in an audit log.
+
+### Broker comparison
+
+Create a property details view that compares all currently valid offers linked to the canonical property.
+
+Display:
+
+* Broker identity and verification status
+* Offer price
+* Brokerage
+* Deposit
+* Additional charges
+* Negotiability
+* Availability
+* Offer update time
+* Enquiry action
+
+Calculate the disclosed initial cost where sufficient information is available.
+
+For rentals, distinguish:
+
+* Monthly rent
+* Refundable deposit
+* Brokerage
+* One-time charges
+* Other disclosed costs
+
+For sales, distinguish:
+
+* Sale price
+* Brokerage
+* Disclosed additional costs
+
+Do not treat a refundable deposit as a permanent expense.
+
+If data is missing, label the cost as incomplete instead of inventing a value.
+
+Allow users to sort offers by rent, sale price, brokerage, and estimated initial outlay where applicable.
+
+Show a warning if offers have different availability or are outdated.
+
+## 14. ADMIN DASHBOARD
+
+Create a secure admin portal.
+
+Sections:
+
+* Overview
+* User Management
+* Broker Verification
+* Property Moderation
+* Duplicate Review
+* Reported Listings
+* Offer Monitoring
+* Audit Logs
+* Platform Settings
+
+Administrators should be able to:
+
+* Review broker verification requests
+* Approve or reject listings
+* Review possible duplicate properties
+* Resolve reported listings
+* Suspend accounts when justified
+* Archive fraudulent or obsolete listings
+* Review important moderation actions
+
+Use server-side role checks for every privileged action.
+
+Record sensitive administrative actions in an audit log.
+
+Never allow ordinary citizens or brokers to access administrative routes or records.
+
+## 15. DATABASE AND SECURITY
+
+Create SQL migrations and documented database setup instructions.
+
+Use:
+
+* Foreign keys
+* Check constraints
+* Unique constraints
+* Useful indexes
+* Parameterized queries
+* Server-side validation
+* Row Level Security where applicable
+* Secure storage policies
+* Restricted access to personal information
+
+Policies must enforce:
+
+* Citizens can access only their own private profile data and enquiries.
+* Brokers can manage only their own offers and authorized listings.
+* Public visitors can access only approved, public property information.
+* Administrators receive access only through trusted role assignment.
+* Private contact details are not exposed without appropriate authorization.
+
+Do not expose Supabase service-role credentials in the frontend.
+
+Keep all secrets in environment variables.
+
+Validate uploaded file types and sizes.
+
+Protect sensitive endpoints against unauthorized access, abuse, and inappropriate request rates.
+
+Use a consistent error response format without leaking secrets or stack traces to users.
+
+## 16. BACKEND API
+
+Implement documented REST endpoints for:
+
+Authentication/profile:
+
+* GET /api/me
+* GET /api/profile
+* PATCH /api/profile
+
+Properties:
+
+* GET /api/properties
+* GET /api/properties/:id
+* POST /api/properties
+* PATCH /api/properties/:id
+* DELETE /api/properties/:id
+
+Search:
+
+* GET /api/search
+* GET /api/search/nearby
+
+Offers:
+
+* GET /api/properties/:id/offers
+* POST /api/properties/:id/offers
+* PATCH /api/offers/:id
+* DELETE /api/offers/:id
+
+Broker:
+
+* GET /api/broker/dashboard
+* GET /api/broker/properties
+* GET /api/broker/leads
+* GET /api/broker/viewings
+
+Citizen:
+
+* GET /api/citizen/dashboard
+* GET /api/citizen/saved-properties
+* POST /api/citizen/saved-properties
+* DELETE /api/citizen/saved-properties/:id
+* POST /api/enquiries
+* GET /api/enquiries
+* POST /api/viewing-requests
+
+Weather:
+
+* GET /api/weather
+
+Admin:
+
+* GET /api/admin/dashboard
+* GET /api/admin/brokers/pending
+* PATCH /api/admin/brokers/:id/verification
+* GET /api/admin/properties/pending
+* PATCH /api/admin/properties/:id/moderation
+* GET /api/admin/duplicates
+* POST /api/admin/duplicates/:id/resolve
+* GET /api/admin/audit-logs
+
+Adjust endpoint shapes as necessary, but document the final API contract and implement matching frontend calls.
+
+Do not return fake success responses when a database operation fails.
+
+Use appropriate HTTP status codes and validate ownership before every protected write.
+
+## 17. PERFORMANCE AND ACCESSIBILITY
+
+Implement:
+
+* Responsive design
+* Lazy-loaded property images
+* Image optimization where available
+* Pagination
+* Loading skeletons
+* Error boundaries
+* Retry options for recoverable failures
+* Accessible labels
+* Keyboard navigation
+* Visible focus states
+* Accessible form errors
+* Reduced-motion support
+* Reasonable API request caching
+* Debounced location search
+* Appropriate database indexes
+
+Avoid unnecessary repeated API requests.
+
+Do not render every property record at once.
+
+## 18. REQUIRED ERROR AND EMPTY STATES
+
+Every data-driven page must handle:
+
+* Loading
+* Empty results
+* API failure
+* Unauthorized access
+* Expired sessions
+* Invalid form data
+* Image upload failure
+* Google Maps configuration failure
+* Weather API failure
+* Network disconnection
+
+Use clear user-facing messages and appropriate retry options.
+
+Never show a success message until the operation has actually succeeded.
+
+Never silently replace missing backend data with fabricated production data.
+
+If seed data is included for development, label it clearly and separate it from real user-generated records.
+
+## 19. TESTING REQUIREMENTS
+
+Create tests for critical application behavior.
+
+Test:
+
+* Citizen registration and login
+* Broker registration and verification
+* Role-based route protection
+* Property creation and editing
+* Image upload
+* Search filters
+* Budget boundaries
+* Buy versus rent separation
+* Nearby property filtering
+* Multiple offers for the same property
+* Duplicate candidate detection
+* Enquiry creation
+* Viewing request creation
+* Ownership restrictions
+* Admin authorization
+* API failures
+* Missing external API keys
+
+Include a documented manual testing checklist.
+
+Verify that a citizen cannot modify another citizen's records and a broker cannot modify another broker's offers.
+
+Verify that multiple brokers can be linked to one canonical property without duplicating its main property record.
+
+## 20. DELIVERABLES
+
+Generate the complete project with:
+
+* Frontend source
+* Backend source
+* Shared TypeScript types where appropriate
+* Database migrations
+* Seed script for development
+* Environment variable example files
+* API documentation
+* README
+* Setup instructions
+* Local development instructions
+* Build instructions
+* Deployment instructions
+* Testing instructions
+* External API configuration guide
+
+Provide a clean folder structure.
+
+Do not omit critical source files.
+
+Do not use pseudocode in place of required application functionality.
+
+Do not create a frontend-only fake backend.
+
+Do not leave essential actions as non-functional buttons.
+
+If implementation is too large for one generation, build it in clearly defined phases and maintain a working project after each phase.
+
+## 21. IMPLEMENTATION ORDER
+
+Follow this order:
+
+Phase 1:
+Project structure, design system, responsive landing page, and routing.
+
+Phase 2:
+Supabase configuration, database migrations, authentication, and role-based access.
+
+Phase 3:
+Citizen and broker dashboards with profile management.
+
+Phase 4:
+Property creation, image uploads, storage, and moderation.
+
+Phase 5:
+Property search, filters, maps, and location-based discovery.
+
+Phase 6:
+Canonical property matching, duplicate review, and multiple broker offers.
+
+Phase 7:
+Citizen enquiries, saved properties, messages, and viewing requests.
+
+Phase 8:
+OpenWeather integration and contextual weather display.
+
+Phase 9:
+Admin dashboard, verification, audit logs, and moderation tools.
+
+Phase 10:
+Testing, security review, responsive polish, performance improvements, and deployment documentation.
+
+At the end of each phase:
+
+* List completed features.
+* List files created or changed.
+* Identify required environment variables.
+* Report tests performed.
+* Identify remaining issues.
+* Do not claim untested functionality is complete.
+
+## 22. FINAL ACCEPTANCE CRITERIA
+
+The project is acceptable only when:
+
+1. The landing page is visually polished and responsive.
+2. Citizen, broker, and admin access are separated correctly.
+3. Authentication and logout work.
+4. Broker property creation persists to the database.
+5. Property images are uploaded to real storage.
+6. Citizens can search and filter database-backed listings.
+7. Google Maps works when correctly configured.
+8. Nearby searches use actual stored coordinates.
+9. OpenWeather displays genuine API data when configured.
+10. Multiple brokers can offer different prices for the same canonical property.
+11. Citizens can compare brokerage, deposit, rent, sale price, and disclosed charges.
+12. Enquiries and viewing requests persist to the database.
+13. Admin moderation is enforced by the backend.
+14. No unauthorized user can access another user's private data.
+15. Errors and missing configurations are handled transparently.
+16. The project builds successfully.
+17. Critical flows have been tested.
+18. The README explains exactly how to run and deploy the application.
+
+Start by inspecting the available project files and existing implementation.
+
+If a project already exists, preserve working functionality and make changes incrementally rather than unnecessarily overwriting the entire codebase.
+
+Then implement Phase 1 and establish the complete architecture needed for subsequent phases.
+
+Do not stop after generating a design. Build the functional application.
